@@ -18,18 +18,33 @@
 // Input: nums = [3,3], target = 6
 // Output: [0,1]
 
+// const twoSum = (nums, target) => {
+//   for (let i = 0; i < nums.length; i++) {
+//     const num = nums[i];
+
+//     for (let j = 0; j < nums.length; j++) {
+//       const num2 = nums[j];
+//       if (i !== j) {
+//         if (num + num2 === target) return [i, j];
+//       }
+//     }
+//   }
+//   return 'no numbers match!'
+// }
+
 const twoSum = (nums, target) => {
+  const obj = {};
   for (let i = 0; i < nums.length; i++) {
     const num = nums[i];
+    const targNum = target - num;
+    const index = obj[targNum];
 
-    for (let j = 0; j < nums.length; j++) {
-      const num2 = nums[j];
-      if (i !== j) {
-        if (num + num2 === target) return [i, j];
-      }
+    if (index !== undefined) {
+      return [index, i]
+    } else {
+      obj[num] = i
     }
   }
-  return 'no numbers match!'
 }
 
 console.log(twoSum([3, 2, 4], 6)) // [1,2]
