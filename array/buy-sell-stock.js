@@ -22,39 +22,26 @@
 // return the profit, highest num - lowest num
 
 // 2. Psuedo
-// creating an empty obj
-// find the lowest num in the array, assign it to obj with its index as its value
-// for loop with i starting at lowest num's index + 1
-// if num is larger than lowest num return profit
-// else return 0
+// create variable to track profit, initialized at 0
+// shift the first element of the array
+// check the rest of the elements, if it is bigger than the shifted num,
+// get the difference, if difference is larger than current profit num, change it to it.
 
 const maxProfit = (prices) => {
-  debugger;
-  let lowestNum = Infinity;
-  let lowestNumI = 0;
-  let highestNum = 0;
+  let profit = 0;
 
-  for (let i = 0; i < prices.length; i++) {
-    const num = prices[i];
-    if (num < lowestNum) {
-      lowestNum = num;
-      lowestNumI = i;
+  while (prices.length) {
+    const currentNum = prices.shift();
+
+    for (let i = 0; i < prices.length; i++) {
+      const num = prices[i];
+      if (num > currentNum) {
+        const difference = num - currentNum;
+        if (difference > profit) profit = difference;
+      }
     }
   }
-
-  if (lowestNumI === prices.length - 1) return 0;
-
-  for (let i = lowestNumI + 1; i < prices.length; i++) {
-    const num = prices[i];
-
-    if (num > lowestNum && num > highestNum) {
-      highestNum = num;
-    }
-  }
-
-  if (highestNum !== 0) return highestNum - lowestNum;
-
-  return 0;
+  return profit;
 }
 
 console.log(maxProfit([7, 1, 5, 3, 6, 4])) // 5
@@ -62,3 +49,5 @@ console.log(maxProfit([7, 1, 5, 3, 6, 4])) // 5
 console.log(maxProfit([7, 6, 4, 3, 1])) // 0
 
 console.log(maxProfit([2, 4, 1])) // 2
+
+console.log(maxProfit([234, 96, 6, 671, 91, 96, 15, 2, 6, 96]))
