@@ -1,0 +1,42 @@
+// You are given a string allowed consisting of distinct characters and an array of strings words.
+// A string is consistent if all characters in the string appear in the string allowed.
+
+// Return the number of consistent strings in the array words.
+
+// Example 1:
+// Input: allowed = "ab", words = ["ad","bd","aaab","baa","badab"]
+// Output: 2
+// Explanation: Strings "aaab" and "baa" are consistent since they only contain characters 'a' and 'b'.
+
+// Example 2:
+// Input: allowed = "abc", words = ["a","b","c","ab","ac","bc","abc"]
+// Output: 7
+// Explanation: All strings are consistent.
+
+// Example 3:
+// Input: allowed = "cad", words = ["cc","acd","b","ba","bac","bad","ac","d"]
+// Output: 4
+// Explanation: Strings "cc", "acd", "ac", and "d" are consistent.
+
+// soodough
+// object, array, set, stack, queue
+// maybe use a set?
+// split allowed characters and add them to the set, sets have 0(1) lookup time
+// pop from array 0(1) and split the word
+// iterate over word
+// if letter in set
+
+const countConsistentStrings = (allowed, words, count = 0) => {
+  if (!words.length) return count;
+  const word = words.pop();
+  let containsLetter = true
+  for (let letter of word.split('')) {
+    if (!(allowed.includes(letter))) containsLetter = false;
+  }
+  if (containsLetter) count += 1
+  return countConsistentStrings(allowed, words, count)
+}
+
+console.log(countConsistentStrings("ab", ["ad", "bd", "aaab", "baa", "badab"])) // 2
+console.log(countConsistentStrings("abc", ["a", "b", "c", "ab", "ac", "bc", "abc"])) // 7
+console.log(countConsistentStrings("cad", ["cc", "acd", "b", "ba", "bac", "bad", "ac", "d"])) // 4
