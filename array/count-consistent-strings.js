@@ -26,15 +26,37 @@
 // iterate over word
 // if letter in set
 
-const countConsistentStrings = (allowed, words, count = 0) => {
-  if (!words.length) return count;
-  const word = words.pop();
-  let containsLetter = true
-  for (let letter of word.split('')) {
-    if (!(allowed.includes(letter))) containsLetter = false;
+// const countConsistentStrings = (allowed, words, count = 0) => {
+//   if (!words.length) return count;
+//   const word = words.pop();
+//   let containsLetter = true
+//   for (let letter of word.split('')) {
+//     if (!(allowed.includes(letter))) containsLetter = false;
+//   }
+//   if (containsLetter) count += 1
+//   return countConsistentStrings(allowed, words, count)
+// }
+
+const countConsistentStrings = (allowed, words) => {
+  const set = new Set()
+  const arr = allowed.split('')
+  for (let char of arr) {
+    set.add(char)
   }
-  if (containsLetter) count += 1
-  return countConsistentStrings(allowed, words, count)
+
+  let count = 0;
+
+  while (words.length) {
+    let conditional = true;
+    const word = words.pop();
+    const letters = word.split('')
+
+    for (let letter of letters) {
+      if (!(set.has(letter))) conditional = false;
+    }
+    if (conditional) count += 1;
+  }
+  return count;
 }
 
 console.log(countConsistentStrings("ab", ["ad", "bd", "aaab", "baa", "badab"])) // 2
