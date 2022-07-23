@@ -33,7 +33,6 @@
 // declare a count variable
 // declare an empty object ---> domain as key, local name as the value
 // iterate over emails array
-// *for first iteration add 1 to count
 // for emails[i] split at the @ ----> [test.email+alex, leetcode.com]
 // start filtering the local name
 // if + present splice there
@@ -53,9 +52,9 @@ const splitEmail = (email) => {
     const character = email[j];
     if (character === '+') {
       emailArr[0] = emailArr[0].slice(0, j)
-      emailArr[0] = emailArr[0].split('.').join('')
     } // slicing off everything after the plus sign
   }
+  if (emailArr[0].includes('.')) emailArr[0] = emailArr[0].split('.').join('')
   return emailArr;
 }
 
@@ -63,18 +62,25 @@ const numUniqueEmails = (emails) => {
   let count = 0;
   const set = new Set;
   for (let i = 0; i < emails.length; i++) {
-    if (i === 0) count++;
     const emailArr = splitEmail(emails[i])
     // ex. of where we are right now, ---> [testemail, leetcode.com]
     if (!(set.has(emailArr[0])) && !(set.has(emailArr[1]))) {
       count++;
       set.add(emailArr[0])
-      set.add(emailArr(1))
+      set.add(emailArr[1])
     }
-
+    if (set.has(emailArr[0]) && !(set.has(emailArr[1]))) {
+      count++
+      set.add(emailArr[1])
+    }
+    if (!(set.has(emailArr[0])) && set.has(emailArr[1])) {
+      count++
+      set.add(emailArr[1])
+    }
   }
   return count;
 }
 
 console.log(numUniqueEmails(["test.email+alex@leetcode.com", "test.e.mail+bob.cathy@leetcode.com", "testemail+david@lee.tcode.com"])) // 2
 console.log(numUniqueEmails(["a@leetcode.com", "b@leetcode.com", "c@leetcode.com"])) // 3
+console.log(numUniqueEmails(["test.email+alex@leetcode.com", "test.email@leetcode.com"])) // 1
