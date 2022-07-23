@@ -43,13 +43,34 @@
 
 // ----> {leetcode.com: testemail}
 
+// UNIQUE EMAIL
+// local name the same? compare the domain names and assign domain name to domain object
+// local name unique? count++ and assign to objects
+
+const splitEmail = (email) => {
+  const emailArr = email.split('@'); // ---> [test.email+alex, leetcode.com]
+  for (let j = 0; j < emailArr[0].length; j++) { // iterating over local name
+    const character = email[j];
+    if (character === '+') {
+      emailArr[0] = emailArr[0].slice(0, j)
+      emailArr[0] = emailArr[0].split('.').join('')
+    } // slicing off everything after the plus sign
+  }
+  return emailArr;
+}
+
 const numUniqueEmails = (emails) => {
   let count = 0;
-  const obj = {};
+  const set = new Set;
   for (let i = 0; i < emails.length; i++) {
     if (i === 0) count++;
-    const email = emails[i];
-    const emailArr = email.split('@'); // ---> [test.email+alex, leetcode.com]
+    const emailArr = splitEmail(emails[i])
+    // ex. of where we are right now, ---> [testemail, leetcode.com]
+    if (!(set.has(emailArr[0])) && !(set.has(emailArr[1]))) {
+      count++;
+      set.add(emailArr[0])
+      set.add(emailArr(1))
+    }
 
   }
   return count;
