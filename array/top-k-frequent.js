@@ -27,6 +27,9 @@
 // if in object, add 1 to its value
 // at this point we have an object of words with its frequency as the value
 // i'm going to try using object.entries
+// maybe make a temp array to hold numbers, sort the frequency numbers into the array
+// from smallest to largest, then splice the array from 0 to k.
+// 
 
 const topKFrequent = (words, k) => {
   const obj = {};
@@ -37,14 +40,8 @@ const topKFrequent = (words, k) => {
     obj[word] += 1;
   }
 
-  const arr = Object.entries(obj)
-
-  for (let i = 0; i < arr.length; i++) {
-    const word = arr[i][0]
-    const num = arr[i][1];
-
-  }
-  return finalArray;
+  const sortedNumArray = Object.values(obj).sort((a, b) => b - a).splice(0, k)
+  return sortedNumArray;
 }
 
 console.log(topKFrequent(["i", "love", "leetcode", "i", "love", "coding"], 2)) // Output: ["i","love"]
